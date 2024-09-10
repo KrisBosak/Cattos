@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cattos", "Cattos\Cattos.csproj", "{BB3BCCFC-5BFF-4D90-8493-E004C12E2B38}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB3BCCFC-5BFF-4D90-8493-E004C12E2B38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB3BCCFC-5BFF-4D90-8493-E004C12E2B38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB3BCCFC-5BFF-4D90-8493-E004C12E2B38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB3BCCFC-5BFF-4D90-8493-E004C12E2B38}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84742488-6AF3-48D9-A29B-6E9E9AFF7F3E}
+	EndGlobalSection
+EndGlobal
