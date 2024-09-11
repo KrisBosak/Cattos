@@ -1,8 +1,6 @@
 ﻿using Cattos.Controllers.Interfaces;
-using Cattos.Models.Cats;
 using Cattos.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace Cattos.Controllers
 {
@@ -18,9 +16,9 @@ namespace Cattos.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> Search(bool hasBreeds)
+        public async Task<IActionResult> Search(bool hasBreeds, int numberOfCats, int pageNumber)
         {
-            return Ok(await _client.GetAsync(hasBreeds));
+            return Ok(await _client.SearchCatsAsync(hasBreeds, numberOfCats, pageNumber));
         }
     }
 }
