@@ -43,10 +43,7 @@ namespace Cattos.Services
 
             using (HttpResponseMessage response = await client.GetAsync($"images/search?order=ASC&limit={numberOfCats}&page={pageNumber}&has_breeds=true"))
             {
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new HttpRequestException("Request not successful - stopped with the status code: " + response.StatusCode);
-                }
+                response.EnsureSuccessStatusCode();
 
                 string jsonString = await response.Content.ReadAsStringAsync();
                 if (string.IsNullOrWhiteSpace(jsonString))
@@ -83,10 +80,7 @@ namespace Cattos.Services
 
             using (HttpResponseMessage response = await client.GetAsync($"images/{id}"))
             {
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new HttpRequestException("Request not successful - stopped with the status code: " + response.StatusCode);
-                }
+                response.EnsureSuccessStatusCode();
 
                 string jsonString = await response.Content.ReadAsStringAsync();
                 if (string.IsNullOrWhiteSpace(jsonString))
@@ -122,16 +116,16 @@ namespace Cattos.Services
 
             var content = new MultipartFormDataContent
             {
-                { new StreamContent(File.OpenRead(imageData.File)) },
+                { new StreamContent(File.OpenRead(imageData.File)), "file", Path.GetFileName(imageData.File) },
+                { new StringContent("sub_id"), imageData.Username },
                 { new StringContent("breed_ids"), imageData.BreedIds }
             };
-            client.DefaultRequestHeaders.Accept.Clear();
+
+            //client.DefaultRequestHeaders.Accept.Clear();
+            //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("multipart/form-data"));
             using (HttpResponseMessage response = await client.PostAsync($"images/upload", content))
             {
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new HttpRequestException("Request not successful - stopped with the status code: " + response.StatusCode);
-                }
+                response.EnsureSuccessStatusCode();
 
                 string jsonString = await response.Content.ReadAsStringAsync();
                 if (string.IsNullOrWhiteSpace(jsonString))
