@@ -1,5 +1,4 @@
 ﻿using Cattos.Models.Cats;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Text.Json;
 
@@ -110,19 +109,19 @@ namespace Cattos.Services
             }
         }
 
-        public async Task<Images> CreateCattoAsync(UploadData imageData)
+        public async Task<string> CreateCattoAsync(UploadData imageData)
         {
             HttpClient client = _httpClientFactory.CreateClient("CatApiClient");
 
-            var content = new MultipartFormDataContent
+            StreamContent fileStreamContent = new StreamContent(imageData.File.OpenReadStream());
+            fileStreamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(imageData.File.ContentType);
+            MultipartFormDataContent content = new MultipartFormDataContent
             {
-                { new StreamContent(File.OpenRead(imageData.File)), "file", Path.GetFileName(imageData.File) },
-                { new StringContent("sub_id"), imageData.Username },
-                { new StringContent("breed_ids"), imageData.BreedIds }
+                { fileStreamContent, "file", imageData.File.FileName },
+                { new StringContent("sub_id"), imageData.sub_id },
+                { new StringContent("breed_ids"), imageData.breed_ids }
             };
 
-            //client.DefaultRequestHeaders.Accept.Clear();
-            //client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("multipart/form-data"));
             using (HttpResponseMessage response = await client.PostAsync($"images/upload", content))
             {
                 response.EnsureSuccessStatusCode();
@@ -139,7 +138,7 @@ namespace Cattos.Services
                     throw new JsonException("Can't deserialize the content.");
                 }
 
-                return catImage;
+                return $"You uploaded a picture of a cat. The id of your picture is: {catImage.Id} and you can view the picture here: {catImage.Url}";
             }
         }
     }

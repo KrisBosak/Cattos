@@ -1,14 +1,10 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Cattos.Models.Cats
+﻿namespace Cattos.Models.Cats
 {
     public class UploadData
     {
-        [JsonPropertyName("file")]
-        public string File {  get; set; } = string.Empty;
-        [JsonPropertyName("breed_ids")]
-        public string BreedIds { get; set; } = string.Empty;
-        [JsonPropertyName("sub_id")]
-        public string Username { get; set; } = string.Empty;
+        // There needs to be a way to have normal C# formatting... 
+        public IFormFile File {  get; set; }
+        public string breed_ids { get; set; } = string.Empty;
+        public string sub_id { get; set; } = string.Empty;
     }
 }

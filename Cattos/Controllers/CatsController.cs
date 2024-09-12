@@ -29,9 +29,8 @@ namespace Cattos.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateCatto([FromBody] UploadData imageData)
+        public async Task<IActionResult> CreateCatto([FromForm] UploadData imageData)
         {
-            // Need to fix matching from form-data 
             return Ok(await _client.CreateCattoAsync(imageData));
         }
     }
